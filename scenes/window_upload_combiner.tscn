@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqftj4mgd14dl"]
+
+[ext_resource type="PackedScene" uid="uid://b46qouyu3lx2m" path="res://scenes/windows/window_base.tscn" id="1_j3f32"]
+[ext_resource type="Script" uid="uid://8wi21y2h4p75" path="res://mods-unpacked/bernier154-network_combiner/scenes/window_upload_combiner.gd" id="2_j3f32"]
+[ext_resource type="Texture2D" uid="uid://delsqjlxjju7v" path="res://mods-unpacked/bernier154-network_combiner/textures/icons/upload.png" id="3_j3f32"]
+[ext_resource type="PackedScene" uid="uid://co5icrrrwscgg" path="res://scenes/input_container.tscn" id="4_b4gm6"]
+[ext_resource type="PackedScene" uid="uid://b4efojcll7i7" path="res://scenes/output_container.tscn" id="5_l250c"]
+
+[node name="WindowBase" instance=ExtResource("1_j3f32")]
+offset_bottom = 207.0
+script = ExtResource("2_j3f32")
+window = "upload_combiner"
+
+[node name="Icon" parent="TitlePanel/TitleContainer" index="0"]
+texture = ExtResource("3_j3f32")
+
+[node name="Title" parent="TitlePanel/TitleContainer" index="1"]
+text = "Upload Combiner"
+
+[node name="MainContainer" type="VBoxContainer" parent="PanelContainer" index="0"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="Upload" parent="PanelContainer/MainContainer" index="0" instance=ExtResource("4_b4gm6")]
+layout_mode = 2
+default_resource = "upload_speed"
+limit = -1.0
+
+[node name="Upload2" parent="PanelContainer/MainContainer" index="1" instance=ExtResource("4_b4gm6")]
+layout_mode = 2
+default_resource = "upload_speed"
+limit = -1.0
+
+[node name="UploadOut" parent="PanelContainer/MainContainer" index="2" node_paths=PackedStringArray("exporting") instance=ExtResource("5_l250c")]
+layout_mode = 2
+default_resource = "upload_speed"
+limit = -1.0
+exporting = [null, null, null, null, null, null, null, null]
+
+[connection signal="resource_set" from="PanelContainer/MainContainer/Upload" to="." method="_on_file_resource_set"]
+[connection signal="resource_set" from="PanelContainer/MainContainer/Upload2" to="." method="_on_file_resource_set"]

@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhwosr5j2uvka"]
+
+[ext_resource type="PackedScene" uid="uid://b46qouyu3lx2m" path="res://scenes/windows/window_base.tscn" id="1_tjnq0"]
+[ext_resource type="Script" uid="uid://dktikspdmg8rb" path="res://mods-unpacked/bernier154-network_combiner/scenes/window_download_combiner.gd" id="2_tjnq0"]
+[ext_resource type="Texture2D" uid="uid://ceokk4e6b20sv" path="res://mods-unpacked/bernier154-network_combiner/textures/icons/download.png" id="3_7sl5q"]
+[ext_resource type="PackedScene" uid="uid://co5icrrrwscgg" path="res://scenes/input_container.tscn" id="4_42y0o"]
+[ext_resource type="PackedScene" uid="uid://b4efojcll7i7" path="res://scenes/output_container.tscn" id="5_qmi54"]
+
+[node name="WindowBase" instance=ExtResource("1_tjnq0")]
+offset_bottom = 207.0
+script = ExtResource("2_tjnq0")
+window = "download_combiner"
+
+[node name="Icon" parent="TitlePanel/TitleContainer" index="0"]
+texture = ExtResource("3_7sl5q")
+
+[node name="Title" parent="TitlePanel/TitleContainer" index="1"]
+text = "Download Combiner"
+
+[node name="MainContainer" type="VBoxContainer" parent="PanelContainer" index="0"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="Download" parent="PanelContainer/MainContainer" index="0" instance=ExtResource("4_42y0o")]
+layout_mode = 2
+default_resource = "download_speed"
+limit = -1.0
+
+[node name="Download2" parent="PanelContainer/MainContainer" index="1" instance=ExtResource("4_42y0o")]
+layout_mode = 2
+default_resource = "download_speed"
+limit = -1.0
+
+[node name="DownloadOut" parent="PanelContainer/MainContainer" index="2" node_paths=PackedStringArray("exporting") instance=ExtResource("5_qmi54")]
+layout_mode = 2
+default_resource = "download_speed"
+limit = -1.0
+exporting = [null, null, null, null, null, null, null, null]
+
+[connection signal="resource_set" from="PanelContainer/MainContainer/Download" to="." method="_on_file_resource_set"]
+[connection signal="resource_set" from="PanelContainer/MainContainer/Download2" to="." method="_on_file_resource_set"]
